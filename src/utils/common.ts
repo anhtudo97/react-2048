@@ -20,6 +20,8 @@ export const shuffle = <T>(arr: T[]) => {
 
 export const getId = (ind: number) => `${ind}_${Date.now()}`
 
+export const clamp = (d: number, min: number, max: number) => Math.max(Math.min(max, d), min);
+
 export const getTileFontSize = (w: number, h: number, v: number) => {
     const factor = v >= 1024 ? 2.8 : 2;
     return Math.min(w, h) / factor
