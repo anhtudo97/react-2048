@@ -3,7 +3,7 @@ import { Color } from '../themes/types'
 // eslint-disable-next-line @typescript-eslint/
 let _tileIndex = 0;
 
-export const nextTileIdnex = () => _tileIndex++;
+export const nextTileIndex = () => _tileIndex++;
 
 export const resetTileIndex = () => {
     _tileIndex = 0
