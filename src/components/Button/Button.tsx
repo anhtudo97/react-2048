@@ -2,7 +2,7 @@ import React, { forwardRef, PropsWithChildren } from 'react';
 import StyledButton, { StyledButtonProps } from './StyledButton';
 
 export interface ButtonProps extends StyledButtonProps {
-  onclick: () => void;
+  onClick: () => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, PropsWithChildren<ButtonProps>>(
