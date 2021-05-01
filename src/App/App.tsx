@@ -1,7 +1,18 @@
-import React, { FC } from 'react';
-import { ThemeName } from '../themes/types'
+import React, { FC, useCallback, useEffect } from 'react';
+import { ThemeProvider } from 'styled-components';
 
-export type Configutation = {
+import Box from '../components/Box';
+
+import { useTheme } from '../hooks/useTheme';
+import useGameBoard from '../hooks/useGameBoard';
+import useGameScore from '../hooks/useGameScore';
+import useGameState, { GameStatus } from '../hooks/useGameState';
+import useLocalStorage from '../hooks/useLocalStorage';
+import useScaleControl from '../hooks/useScaleControl';
+import { ThemeName } from '../themes/types'
+import { GRID_SIZE, MIN_SCALE, SPACING } from '../utils/constants';
+
+export type Configuration = {
     theme: ThemeName;
     bestScore: number;
     rows: number;
@@ -11,11 +22,65 @@ export type Configutation = {
 const APP_NAME = '@)$*'
 
 const App: FC = () => {
+    const [{ status: gameStatus, pause }, setGameStatus] = useGameState({
+        status: 'running',
+        pause: false,
+    });
+    const [config, setConfig] = useLocalStorage<Configuration>(APP_NAME, {
+        theme: 'default',
+        bestScore: 0,
+        rows: MIN_SCALE,
+        cols: MIN_SCALE,
+    });
 
-    
+    const [{ name: themeName, value: themeValue }, setTheme] = useTheme(
+        config.theme,
+    );
 
+    const [rows, setRows] = useScaleControl(config.rows);
+    const [cols, setCols] = useScaleControl(config.cols);
 
-    return <div>1</div>
+    const { total, best, addScore, setTotal } = useGameScore(config.bestScore);
+
+    const { tiles, onMove, onMovePending } = useGameBoard({
+        rows,
+        cols,
+        pause,
+        gameStatus,
+        setGameStatus,
+        addScore,
+    });
+
+    const onResetGame = useCallback(() => {
+        setGameStatus('restart');
+    }, [setGameStatus]);
+
+    const onCloseNotification = useCallback(
+        (currentStatus: GameStatus) => {
+            setGameStatus(currentStatus === 'win' ? 'continue' : 'restart');
+        },
+        [setGameStatus],
+    );
+
+    useEffect(() => {
+        if (gameStatus === 'restart') setTotal(0);
+    }, [gameStatus, setTotal]);
+
+    useEffect(() => {
+        setConfig({ rows, cols, bestScore: best, theme: themeName });
+    }, [rows, cols, best, themeName, setConfig]);
+
+    return <ThemeProvider theme={themeValue}>
+        <Box
+            justifyContent="center"
+            inlineSize="100%"
+            blockSize="100%"
+            alignItems="start"
+            borderRadius={0}
+        >
+
+        </Box>
+    </ThemeProvider>
 }
 
 export default App;
