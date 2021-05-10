@@ -51,3 +51,5 @@ const ScoreBoard: FC<ScoreBoardProps> = ({ title, total }) => {
     </Box>
   );
 };
+
+export default ScoreBoard;
