@@ -1,35 +1,42 @@
-import { useCallback, useState } from 'react'
-
+import { useCallback, useState } from 'react';
 
 const useLocalStorage = <T>(
-    name: string,
-    initalValue: T
+  name: string,
+  initialValue: T,
 ): [T, (newValue: T) => void] => {
-    const getValue = (): T => {
-        try {
-            const item = window.localStorage.getItem(name);
-            return item != null ? JSON.parse(item) : initalValue;
-        } catch (error) {
-            console.error(`Cannot get localStorage by the given name ${name}:`, error.message);
-            return initalValue;
-        }
+  const getValue = (): T => {
+    try {
+      const item = window.localStorage.getItem(name);
+      return item != null ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `Cannot get localStorage by the given name ${name}:`,
+        error.message,
+      );
+      return initialValue;
     }
+  };
 
-    const [storedValue, setStoredValue] = useState<T>(getValue);
+  const [storedValue, setStoredValue] = useState<T>(getValue);
 
-    const setValue = useCallback(
-        (newValue: T) => {
-            try {
-                window.localStorage.setItem(name, JSON.stringify(newValue));
-                setStoredValue(newValue);
-            } catch (error) {
-                console.error(`Cannot set localStorage by the given name ${name}:`, error.message);
+  const setValue = useCallback(
+    (newValue: T) => {
+      try {
+        window.localStorage.setItem(name, JSON.stringify(newValue));
+        setStoredValue(newValue);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Cannot set localStorage by the given name ${name}:`,
+          error.message,
+        );
+      }
+    },
+    [name],
+  );
 
-            }
-        }, [name]
-    )
-
-    return [storedValue, setValue];
+  return [storedValue, setValue];
 };
 
 export default useLocalStorage;

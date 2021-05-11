@@ -13,7 +13,7 @@ import useScaleControl from '../hooks/useScaleControl';
 import { GRID_SIZE, MIN_SCALE, SPACING } from '../utils/constants';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { ThemeName } from '../themes/types';
-import { useTheme } from '../hooks/useTheme';
+import useTheme from '../hooks/useTheme';
 
 export type Configuration = {
   theme: ThemeName;
