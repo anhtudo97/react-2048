@@ -9,7 +9,7 @@ export interface StyledGridProps {
 }
 
 const StyledGrid = styled.div<StyledGridProps>`
-  x-sizing: border-box;
+  box-sizing: border-box;
   display: grid;
   width: ${({ width }) => `${width}px`};
   height: ${({ height }) => `${height}px`};

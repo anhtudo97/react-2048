@@ -8,7 +8,7 @@ export interface StyledButtonProps {
 const getMiniProps = () => css`
   width: 24px;
   height: 24px;
-  font-size: 24ps;
+  font-size: 12px;
   line-height: 24px;
   padding: 0;
 `;

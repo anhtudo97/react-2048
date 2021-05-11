@@ -30,20 +30,20 @@ const GameBoard: FC<GameBoardProps> = ({
   boardSize,
   spacing,
   onMove,
-  onCloseNotification,
   onMovePending,
+  // onMergePending,
+  onCloseNotification,
 }) => {
   const [{ width: tileWidth, height: tileHeight }, setTileSize] = useState(() =>
     calcTileSize(boardSize, rows, cols, spacing),
   );
-
   const boardRef = useRef<HTMLDivElement>(null);
   useArrowKeyPress(onMove);
   useSwipe(boardRef, onMove);
 
   useEffect(() => {
     setTileSize(calcTileSize(boardSize, rows, cols, spacing));
-  }, [boardSize, rows, cols, spacing]);
+  }, [boardSize, cols, rows, spacing]);
 
   return (
     <Box position="relative" ref={boardRef}>
@@ -86,4 +86,4 @@ const GameBoard: FC<GameBoardProps> = ({
   );
 };
 
-export default GameBoard;
+export default React.memo(GameBoard);

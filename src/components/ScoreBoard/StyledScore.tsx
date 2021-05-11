@@ -4,7 +4,7 @@ import { fadeOut } from '../../utils/animation';
 const StyledScore = styled.div`
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 10px;
   width: 100%;
   text-align: center;
   background: none;

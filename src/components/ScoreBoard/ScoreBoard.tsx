@@ -8,7 +8,7 @@ export interface ScoreBoardProps {
   total: number;
 }
 
-const ScoreBoard: FC<ScoreBoardProps> = ({ title, total }) => {
+const ScoreBoard: FC<ScoreBoardProps> = ({ total, title }) => {
   const totalRef = useRef(total);
   const [score, setScore] = useState(total - totalRef.current);
 

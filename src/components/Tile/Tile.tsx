@@ -17,7 +17,7 @@ const Tile: FC<TileProps> = ({
   isNew = false,
   isMerging = false,
 }) => (
-  <StyledTile value={value} width={width} height={height} x={x} y={y}>
+  <StyledTile value={value} x={x} y={y} width={width} height={height}>
     <StyledTileValue
       value={value}
       backgroundColor={getTileColor(value)}

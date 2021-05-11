@@ -24,4 +24,4 @@ const Grid: FC<GridProps> = ({ width, height, rows, cols, spacing }) => {
   );
 };
 
-export default Grid;
+export default React.memo(Grid);
